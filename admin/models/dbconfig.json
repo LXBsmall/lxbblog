@@ -1,0 +1,8 @@
+{
+  "lbdb" : {
+    "DB_HOST" : "localhost",
+    "DB_NAME" : "lxb",
+    "DB_PASSWD" : "11",
+    "DB_BASE" : "lxbsmall"
+  }
+}
