@@ -6,5 +6,11 @@
  * Time: 17:30
  */
 
-$lbdb = @new mysqli_connect('localhost', 'lxb', '11', 'lxbsmall');
+$lbdb = @new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_BASE);
+if ($lbdb->connect_error){
+    lb_die(503, '连接数据库失败!');
+}
+if (!$lbdb->set_charset('utf8')){
+    lb_die(503, '设置字符集失败!');
+}
 
