@@ -16,3 +16,5 @@
     </div>
 </footer>
 </div>      <!--wrapper end-->
+</body>
+</html>

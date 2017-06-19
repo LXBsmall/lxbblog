@@ -6,7 +6,7 @@
  * Time: 15:08
  */
 
-$blogname = '静静的看你装逼';
+$blogname = $lbopt->get('blogname');
 ?>
 
 <!doctype html>
@@ -35,16 +35,16 @@ $blogname = '静静的看你装逼';
             <h2 class="sitename"><?php echo $blogname; ?></h2>
             <p class="moto">多说多错, 不如沉默!</p>
             <form name="search_box" class="search" action="/search" onload="document.search_box.reset()">
-                <img src="/themes/images/search.svg" class="icon" /><!--
+                <img src="/themes/images/search.svg" class="icon"style="height: 1em;"/><!--
                     --><input name="q" placeholder="Google Search" />
             </form>
             <div class="nav">
-                <ol>
+                <ul>
                     <li><a href="/">首页</a></li>
                     <li><a href="/">文章归档</a></li>
                     <li><a href="/">说说</a></li>
                     <li><a href="/">建议反馈</a></li>
-                </ol>
+                </ul>
             </div>
         </div>
     </header>

@@ -7,6 +7,14 @@
  */
 
 require_once ('header.php');
-echo 'my home page!';
+?>
+<div id="shuoshuo">
+    <?php
+        $shuoshuo = $lbshuoshuo->get();
+        echo "<ul class='shuoshuo'>$shuoshuo->content";
 
+        echo "</ul>"
+    ?>
+</div>
+<?php
 require_once ('footer.php');
