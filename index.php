@@ -14,5 +14,7 @@ if(file_exists('MAINTENANCE')) {
 }
 $start_time = microtime();
 require_once('admin/load.php');
-$lbquery->query();
+if (!$lbquery->query()){
+    lb_die('503', '未定义查询');
+}
 if ($lbquery->is_home())    require_once('themes/index.php');

@@ -26,12 +26,17 @@ class LB_Query
         return $this->type === 'home';
     }
 
+    public function is_admin(){
+        return $this->type === 'admin';
+    }
+
     public function query(){
         $this->parse_uri_string();
         if(preg_match('#(\'|"|;|\./|\\\\|&|=|>|<)#', $this->uri))
             lb_die(503, 'url格式错');
         $rules = [
-            '^/$'                       =>  'home=1'
+            '^/$'                       =>  'home=1',
+            '^/admin$'                  => 'admin=1'
         ];
         foreach ($rules as $rule => $rewrite){
             $pattern = '#'.$rule.'#';
@@ -51,6 +56,11 @@ class LB_Query
 
         if (isset($this->internal_query['home'])){
             $this->type = 'home';
+            return true;
+        }
+
+        if(isset($this->internal_query['admin'])){
+            $this->type = 'admin';
             return true;
         }
 

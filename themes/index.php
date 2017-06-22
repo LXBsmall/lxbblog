@@ -8,21 +8,22 @@
 
 require_once ('header.php');
 ?>
-<div id="content_wrap">
-    <div id="shuoshuo">
-        <?php
+<div id="shuoshuo">
+    <?php
+    $shuoshuo = $lbshuoshuo->get();
+        if (is_object($shuoshuo)) {
+            ?>
+            <p class="shuoshuo">
+                <?php echo $shuoshuo->source; ?>
+                <i class="fa fa-edit comment-edit"></i>
+            </p>
+            <ul class="shuoshuo">
 
-        $shuoshuo = $lbshuoshuo->get();
-        if ($shuoshuo){
-            echo "<ul class='shuoshuo'>$shuoshuo->content 
-            <i class='fa fa-pencil-square-o' aria-hidden='true'></i>";
-
-            echo "</ul>";
+            </ul>
+            <?php
         }
-        ?>
-    </div>
-
-    <div id=""></div>
+    ?>
+    <script src="/themes/js/shuoshuo.js"></script>
 </div>
 
 <?php
