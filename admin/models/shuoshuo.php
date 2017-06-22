@@ -10,7 +10,7 @@ class LB_Shuoshuo
 {
     public function get(){
         global $lbdb;
-        $sql = "SELECT * FROM shuoshuo GROUP BY date";
+        $sql = "SELECT * FROM shuoshuo ORDER BY date DESC";
         $row = $lbdb->query($sql);
         if (!$row){
             return false;
