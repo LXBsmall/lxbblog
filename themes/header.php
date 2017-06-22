@@ -16,6 +16,7 @@ $blogname = $lbopt->get('blogname');
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title><?php
         if($lbquery->is_home()){
 
@@ -23,6 +24,7 @@ $blogname = $lbopt->get('blogname');
         echo $blogname;
         ?>
     </title>
+    <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="//blog-10005538.file.myqcloud.com/jquery.min.js"></script>
@@ -32,6 +34,7 @@ $blogname = $lbopt->get('blogname');
 <div id="wrapper"></div>
     <header>
         <div class="content">
+            <img src="/themes/images/me.JPG" alt="头像" height="100" class="avatar">
             <h2 class="sitename"><?php echo $blogname; ?></h2>
             <p class="moto">多说多错, 不如沉默!</p>
             <form name="search_box" class="search" action="/search" onload="document.search_box.reset()">
@@ -48,6 +51,6 @@ $blogname = $lbopt->get('blogname');
             </div>
         </div>
     </header>
-</div>
+
 
 

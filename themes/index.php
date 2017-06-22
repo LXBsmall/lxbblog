@@ -8,13 +8,22 @@
 
 require_once ('header.php');
 ?>
-<div id="shuoshuo">
-    <?php
-        $shuoshuo = $lbshuoshuo->get();
-        echo "<ul class='shuoshuo'>$shuoshuo->content";
+<div id="content_wrap">
+    <div id="shuoshuo">
+        <?php
 
-        echo "</ul>"
-    ?>
+        $shuoshuo = $lbshuoshuo->get();
+        if ($shuoshuo){
+            echo "<ul class='shuoshuo'>$shuoshuo->content 
+            <i class='fa fa-pencil-square-o' aria-hidden='true'></i>";
+
+            echo "</ul>";
+        }
+        ?>
+    </div>
+
+    <div id=""></div>
 </div>
+
 <?php
 require_once ('footer.php');
