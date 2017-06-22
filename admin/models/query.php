@@ -26,12 +26,19 @@ class LB_Query
         return $this->type === 'home';
     }
 
+    public function is_admin(){
+        return $this->type === 'admin';
+    }
+
     public function query(){
+        $u = [];
         $this->parse_uri_string();
         if(preg_match('#(\'|"|;|\./|\\\\|&|=|>|<)#', $this->uri))
             lb_die(503, 'url格式错');
         $rules = [
-            '^/$'                       =>  'home=1'
+            '^/index\.[php|html]$'      => '',
+            '^/$'                       => '',
+            //'^/admin$'                  => 'admin=1'
         ];
         foreach ($rules as $rule => $rewrite){
             $pattern = '#'.$rule.'#';
@@ -45,11 +52,21 @@ class LB_Query
             $this->type = 'unknown';
             $this->objs = null;
             //lb_die(503, '未知查询!');
+            return false;
         }
 
         $this->internal_query = parse_query_string($u, false, false);
 
-        if (isset($this->internal_query['home'])){
+        if (isset($this->internal_query['memory'])){
+            $this->type = 'memory';
+            return true;
+        }
+
+        else if(isset($this->internal_query['admin'])){
+            $this->type = 'admin';
+            return true;
+        }
+        else{
             $this->type = 'home';
             return true;
         }

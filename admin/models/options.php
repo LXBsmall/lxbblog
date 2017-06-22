@@ -6,6 +6,9 @@
  * Date: 2017/6/19
  * Time: 15:59
  */
+
+require_once ('base.php');
+
 class LB_Options
 {
     public function get($name, $def=''){
