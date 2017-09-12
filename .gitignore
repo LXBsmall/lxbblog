@@ -1,3 +1,7 @@
-# php
+# App:
 .idea/*
-themes/sass/style.css*
+themes/sass/*.css
+
+# My configurations:
+
+
