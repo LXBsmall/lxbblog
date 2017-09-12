@@ -1,6 +1,6 @@
 # App:
 .idea/*
-themes/sass/*.css
+*.css*
 
 # My configurations:
 

@@ -31,12 +31,13 @@ class LB_Query
     }
 
     public function query(){
+        $u = null;
         $this->parse_uri_string();
         if(preg_match('#(\'|"|;|\./|\\\\|&|=|>|<)#', $this->uri))
-            lb_die(503, 'url格式错');
+            return false;
         $rules = [
             '^/$'                       =>  'home=1',
-            '^/admin$'                  => 'admin=1'
+            '^/index\.(php|html)$'   =>  'home=2',
         ];
         foreach ($rules as $rule => $rewrite){
             $pattern = '#'.$rule.'#';
@@ -45,24 +46,26 @@ class LB_Query
                 break;
             }
         }
-        
+
         if (!isset($u)){
             $this->type = 'unknown';
             $this->objs = null;
-            //lb_die(503, '未知查询!');
+            return false;
         }
 
         $this->internal_query = parse_query_string($u, false, false);
 
-        if (isset($this->internal_query['home'])){
-            $this->type = 'home';
+
+        if(isset($u)) {
+            if ($this->internal_query['home'] == 2) {
+                header('HTTP/1.1 301 Moved Permanently');
+                header('Location: /');
+                die(0);
+            }
+            $this->type = 'home';;
             return true;
         }
 
-        if(isset($this->internal_query['admin'])){
-            $this->type = 'admin';
-            return true;
-        }
 
     }
 

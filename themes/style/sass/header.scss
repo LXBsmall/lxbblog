@@ -1,0 +1,43 @@
+$header-width: 200px;
+
+header#heading{
+  widows: $header-width;
+  padding:20px;
+  background-color: gray;
+  position: fixed;
+  bottom: 0;
+  top:0;
+  text-align:center;
+  overflow: auto;
+
+  ul {
+    list-style-type: none;
+    a{
+      &:visited {
+        color: black;
+      }
+    }
+  }
+
+  .heading {
+    margin-bottom:20px;
+  }
+
+  .nav{
+    font-weight:bold;
+    li{
+      padding: 2px 0;
+    }
+  }
+
+  img {
+    border-radius: 50px;
+  }
+}
+
+#main{
+  padding:20px $header-width+20px 20px $header-width+20px;
+  ul{
+    list-style-type: none;
+  }
+}

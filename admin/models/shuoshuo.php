@@ -8,11 +8,39 @@
  */
 class LB_Shuoshuo
 {
-    public function get(){
+    /*
+     * 获取近期说说
+     * @parm    (int) $n 最近说说条数
+     * @return  成功返回说说对象的数组, 失败返回false
+     */
+    public function get_recent_shuoshuos($n=10){
         global $lbdb;
-        $sql = "SELECT * FROM shuoshuo ORDER BY date DESC LIMIT 1";
+        $sql = "SELECT * FROM shuoshuo ORDER BY date DESC LIMIT $n";
         $row = $lbdb->query($sql);
         if (!$row){
+            return false;
+        }
+        $r = [];
+        while ($obj = $row->fetch_object())
+            $r[] = $obj;
+        return $r;
+    }
+
+    public function get_id(){
+        global $lbdb;
+        $sql = "SELECT id FROM shuoshuo ORDER BY id DESC LIMIT 1";
+        $row = $lbdb->query($sql);
+        if(!$row){
+            return false;
+        }
+        return $row->fetch_object()->id;
+    }
+
+    public function get_shuoshuo_by_id($id){
+        global $lbdb;
+        $sql = "SELECT * FROM shuoshuo WHERE id=$id";
+        $row = $lbdb->query($sql);
+        if(!$row){
             return false;
         }
         return $row->fetch_object();
