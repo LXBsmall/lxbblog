@@ -46,7 +46,7 @@ function login_auth($redirect = false){
 function login_gen_cooike(){
     global $lbopt;
     $saved_user = $lbopt->get('user') ?? '';
-    $saved_passwd = $lbopt->get('passwd') ?? '';
+    $saved_passwd = $lbopt->get('password') ?? '';
     return $saved_user.','.$saved_passwd;
 
 }

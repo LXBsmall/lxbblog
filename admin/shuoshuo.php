@@ -10,7 +10,7 @@ require_once ('load.php');
 require_once ('header.php');
 
 admin_header();
-$shuoshuos = $lbshuoshuo->get_recent_shuoshuos(20);
+$shuoshuos = $lbshuoshuo->get_recent_shuoshuos(10);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') :
     $id = $_GET['id'] ?? '';

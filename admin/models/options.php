@@ -18,7 +18,6 @@ class LB_Options
         if (!$row){
             return $def;
         }
-        //var_dump($row->fetch_assoc()['value']);
         return $row->fetch_object()->value;
     }
 }
