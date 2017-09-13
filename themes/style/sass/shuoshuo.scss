@@ -1,0 +1,33 @@
+#rct-shuoshuo{
+
+
+  #shuoshuo-list{
+    .fa-commenting, .fa-caret-up{
+      visibility: hidden;
+      cursor: pointer;
+    }
+    li:hover {
+      .fa-commenting, .fa-caret-up{
+        visibility: visible;
+      }
+    }
+  }
+
+  #shuoshuo-comment{
+    width : 300px;
+    display: none;
+    padding:0.5em 0;
+    input{
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      padding:0.3em;
+      margin-bottom:3px;
+      width: 45%;
+    }
+    textarea{
+      width: 91%;
+      margin-bottom: 3px;
+    }
+  }
+}

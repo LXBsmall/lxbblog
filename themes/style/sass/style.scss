@@ -1,0 +1,31 @@
+*{
+  margin: 0;
+  padding:0;
+
+  a{
+    color: black;
+    text-decoration: none;
+    &:hover {
+      color: red;
+      text-decoration: underline;
+    }
+    &:visited{
+      color: blue;
+    }
+  }
+
+  .left{
+    float:left;
+  }
+  .right{
+    float:right;
+  }
+  .clearb{
+    clear:both;
+  }
+  .clearl{
+    clear:left;
+  }
+}
+@import "header";
+@import "shuoshuo";

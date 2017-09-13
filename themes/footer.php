@@ -7,6 +7,7 @@
  */
 ?>
 
+    </dir>  <!--contariner end-->
 <footer>
     <div class="content">
         <div class="gotop" id="gotop">
@@ -15,6 +16,6 @@
         <div class="copyright"></div>
     </div>
 </footer>
-</div>      <!--wrapper end-->
+</section>      <!--main end-->
 </body>
 </html>

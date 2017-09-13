@@ -31,10 +31,11 @@ class LB_Query
     }
 
     public function query(){
+
         $u = [];
         $this->parse_uri_string();
         if(preg_match('#(\'|"|;|\./|\\\\|&|=|>|<)#', $this->uri))
-            lb_die(503, 'url格式错');
+            return false;
         $rules = [
             '^/index\.[php|html]$'      => '',
             '^/$'                       => '',
@@ -47,7 +48,7 @@ class LB_Query
                 break;
             }
         }
-        
+
         if (!isset($u)){
             $this->type = 'unknown';
             $this->objs = null;
@@ -70,6 +71,7 @@ class LB_Query
             $this->type = 'home';
             return true;
         }
+
 
     }
 

@@ -6,6 +6,11 @@
  * Time: 16:30
  */
 require_once ('load.php');
-//require_once ('login/login_auth.php');
+require_once ('header.php');
 
-login_auth();
+
+$logined = login_auth(true);
+if($logined){
+    admin_header();
+    require_once ('footer.php');
+}

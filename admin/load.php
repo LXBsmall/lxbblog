@@ -9,6 +9,7 @@ require_once('setup/config.php');
 require_once ('models/base.php');
 require_once ('models/options.php');
 require_once ('models/shuoshuo.php');
+require_once ('models/post.php');
 require_once('models/query.php');
 
 //require_once('login/login_auth.php');
@@ -20,3 +21,4 @@ require_once('login_auth.php');
 $lbquery = new LB_Query();
 $lbopt = new LB_Options();
 $lbshuoshuo = new LB_Shuoshuo();
+$lbpost = new LB_Post();
