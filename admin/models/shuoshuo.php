@@ -15,7 +15,7 @@ class LB_Shuoshuo
      */
     public function get_recent_shuoshuos($n=10){
         global $lbdb;
-        $sql = "SELECT * FROM shuoshuo ORDER BY date DESC LIMIT $n";
+        $sql = "SELECT * FROM shuoshuo where is_show=1 ORDER BY date DESC LIMIT $n";
         $row = $lbdb->query($sql);
         if (!$row){
             return false;
@@ -25,6 +25,7 @@ class LB_Shuoshuo
             $r[] = $obj;
         return $r;
     }
+
 
     public function get_id(){
         global $lbdb;
@@ -45,4 +46,22 @@ class LB_Shuoshuo
         }
         return $row->fetch_object();
     }
+
+    public function delete_shuoshuo_by_id($id){
+        global $lbdb;
+        if(!isset($id) || $id<=0){
+            return false;
+        }
+
+        $sql = "UPDATE shuoshuo SET is_show=0 where id=$id";
+        $row = $lbdb->query($sql);
+        if($row){
+            return $lbdb->affected_rows;
+        }
+
+        else{
+            return false;
+        }
+    }
+
 }

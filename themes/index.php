@@ -19,7 +19,7 @@ require_once ('header.php');
             <div id="shuoshuo-comment">
                 <form action="" method="post">
                     <input type="text" name="id" value='' hidden>
-                    <input type="text" name="visitor" placeholder="你叫啥子">
+                    <input type="text" name="visitor" placeholder="你叫啥子" required>
                     <input type="email" name="email" placeholder="邮箱多少" required><br>
                     <textarea name="comment" id="" rows="5"
                               placeholder="你想说啥子" required></textarea>

@@ -6,8 +6,11 @@
  * Time: 17:15
  */
 require_once ('load.php');
+$blogname = $lbopt->get('blogname');
 
-function html_login($url = ''){?>
+function html_login($url = ''){
+    global $blogname;
+    ?>
     <!doctype html>
     <html lang="en">
     <head>
@@ -16,14 +19,14 @@ function html_login($url = ''){?>
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="style/style.css">
-        <title>登录</title>
+        <title>后台管理 - <?php echo $blogname;?></title>
     </head>
     <body>
     <div class="outer"></div>
     <div class="login-dialog">
         <div class="login">
             <form action="" method="post" class="login-form">
-                <h1 class="title">后台管理</h1>
+                <h1 class="title">登  录</h1>
                 <div class="input-wrapper">
                     <input type="text" name="user" placeholder="用户名" required/><br>
                     <input type="password" name="password" placeholder="密码" required/><br>

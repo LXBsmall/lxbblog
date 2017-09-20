@@ -9,50 +9,49 @@
 require_once ('load.php');
 require_once ('header.php');
 
-admin_header();
-$shuoshuos = $lbshuoshuo->get_recent_shuoshuos(10);
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET') :
+function shuoshuo_main(){
+    global $lbshuoshuo;
     $id = $_GET['id'] ?? '';
-    if(isset($id) && $id > 0){
-        $cur_shuoshuo = $lbshuoshuo->get_shuoshuo_by_id($id);
-        $cur_content  = $cur_shuoshuo->content;
-        $cur_source   = $cur_shuoshuo->source;
-        $cur_date     = $cur_shuoshuo->date;
-        $cur_geolat   = $cur_shuoshuo->geo_lat;
-        $cur_geolng   = $cur_shuoshuo->geo_lng;
-        $cur_geoaddr  = $cur_shuoshuo->geo_addr;
-    } else {
-        $cur_shuoshuo = '';
-        $cur_content  = '';
-        $cur_source   = '';
-        $cur_date     = '';
-        $cur_geolat   = '';
-        $cur_geolng   = '';
-        $cur_geoaddr  = '';
+    $isdelete = $_GET['delete'] ?? '0';
+
+    if($isdelete == 1 && $id>0){
+        echo delete_shuoshuo($id);
+        return;
     }
+
+    if ($id > 0){
+        echo edit_shuoshuo($id);
+        return;
+    }
+
+    admin_header();
     ?>
-<section id="main">
-    <div id="post-shuoshuo">
-        <h3>发表说说</h3>
-        <form method="post">
-            <input type="text" name="id" style="display: block;"
-                   value="<?php echo ($id && $id>0)?$id:$lbshuoshuo->get_id()+1; ?>">
-            <textarea name="content" id="" cols="30" rows="10" style="display: block;"
-                      placeholder="说说内容"><?php echo $cur_content; ?></textarea>
-            <lebal>时间:<input type="datetime" name="date" value="<?php echo $cur_date; ?>"></lebal>
-            <lebal>经度:<input type="text" name="geolat" value="<?php echo $cur_geolat; ?>"></lebal>
-            <lebal>纬度:<input type="text" name="geolng" value="<?php echo $cur_geolng; ?>"></lebal>
-            <lebal>位置:<input type="text" name="geoaddr" value="<?php echo $cur_geoaddr; ?>"></lebal>
-            <p class="geo">坐标:<?php echo $id>0 ? "经度:".$cur_geolat."纬度:".$cur_geolng :''; ?></p>
-            <p>位置:
-                <select name="location" id="location">
-                    <option value="<?php echo $cur_geoaddr; ?>"><?php echo $cur_geoaddr; ?></option>
-                </select>
-            </p>
-            <input type="button" value="更新坐标" onclick="getGeoLocation()">
-            <input type="button" value="提交">
-        </form>
+    <script src="js/shuoshuo.js"></script>
+    <section id="main">
+        <div id="post-shuoshuo">
+            <h3>发表说说</h3>
+            <form method="post">
+                <input type="text" name="id" data-bind-shuoshuo="id" style="display: block;"
+                       value="<?php echo ($id && $id>0)?$id:$lbshuoshuo->get_id()+1; ?>">
+                <textarea name="content" data-bind-shuoshuo="content" cols="30" rows="10" style="display: block;"
+                          placeholder="说说内容"><?php /*echo $cur_content; */?></textarea>
+                <lebal>时间:<input type="datetime" name="date" data-bind-shuoshuo="date" ></lebal>
+                <lebal>经度:<input type="text" name="geolat" data-bind-shuoshuo="geolat"></lebal>
+                <lebal>纬度:<input type="text" name="geolng" data-bind-shuoshuo="geolng"></lebal>
+                <lebal>位置:<input type="text" name="geoaddr" data-bind-shuoshuo="geoaddr"></lebal>
+                <div class="geo">
+                    <p>维度：<span data-bind-shuoshuo="geolat"></span></p>
+                    <p>经度：<span data-bind-shuoshuo="geolng"></span></p>
+                    <p>位置:
+                        <select name="location" id="location" data-bind-shuoshuo="geoaddr">
+                            <option value="<?php /*echo $cur_geoaddr; */?>"><?php /*echo $cur_geoaddr; */?></option>
+                        </select>
+                    </p>
+                    <p class="error"></p>
+                </div>
+                <input type="button" value="更新坐标" onclick="getGeoLocation()">
+                <input type="button" value="提交">
+            </form>
     </div>
     <div class="loads">
 
@@ -62,23 +61,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') :
         <h3>近期说说(20)</h3>
         <ul id="rct-shuoshuo">
             <?php
-                foreach($shuoshuos as $s){
-                    $id = $s->id;
-                    $source = $s->source;
-                    $date = $s->date;
-                    echo "<li data-id='$id'>$source <span class='date'>-$date</span>
-                        <input type='button' value='编辑'class='edit'> 
-                        <input type='button' value='删除'class='delete'> 
-                        </li>";
-                }
+            $shuoshuos = $lbshuoshuo->get_recent_shuoshuos(10);
+            foreach($shuoshuos as $s){
+                $id = $s->id;
+                $source = $s->source;
+                $date = $s->date;
+                echo "<li data-id='$id'>$source <span class='date'>-$date</span>
+                            <input type='button' value='编辑'class='edit'> 
+                            <input type='button' value='删除'class='delete'> 
+                            </li>";
+            }
             ?>
         </ul>
     </div>
-</section>
+    </section>
 
 <?php
-else :
+    require_once ('footer.php');
+}
+
+function edit_shuoshuo($id){
+    global $lbshuoshuo;
+    $dbss = $lbshuoshuo->get_shuoshuo_by_id($id);
+    $shuoshuo = json_encode($dbss);
+    //$shuoshuo = str_replace(['\\', '\''],['\\\\', '\\\''], $shuoshuo);
+    //var_dump($shuoshuo);
+    return $shuoshuo;
+}
+
+function delete_shuoshuo($id){
+    global $lbshuoshuo;
+    global $lbdb;
+    $shuoshuo_rep = [];
+    if ($ret = $lbshuoshuo->delete_shuoshuo_by_id($id)){
+        $shuoshuo_rep['repCode'] = 0;
+        $shuoshuo_rep['repInfo'] = '删除说说成功';
+    }
+    else{
+        if($ret == 0){
+            $shuoshuo_rep['repInfo'] = '删除说说失败(说说id不存在)';
+        }
+        $shuoshuo_rep['repCode'] = -1;
+        $shuoshuo_rep['repInfo'] = '删除说说失败(['.$lbdb->errno.']'.$lbdb->error.']';
+    }
+    return json_encode($shuoshuo_rep);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') :
+    shuoshuo_main();
+    ?>
+
+
+<?php
+else : //POST
+    if(isset($_POST['delete']) && $_POST['delete'] == 1){
+
+    }
 
 endif;
 
-require_once ('footer.php');

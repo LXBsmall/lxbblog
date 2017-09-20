@@ -52,6 +52,7 @@ $blogname = $lbopt->get('blogname');
                     <li><a href="/">文章归档</a></li>
                     <li><a href="/">说说</a></li>
                     <li><a href="/">建议反馈</a></li>
+                    <li><a href="admin">后台管理</a></li>
                 </ul>
             </div>
         </div>
