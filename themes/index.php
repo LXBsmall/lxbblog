@@ -14,7 +14,7 @@ require_once ('header.php');
         <?php
         $shuoshuos = null;
         $shuoshuos = $lbshuoshuo->get_recent_shuoshuos(); ?>
-        <script src="themes/js/shuoshuo.js"></script>
+<!--        <script src="/themes/js/shuoshuo.js"></script>-->
         <ul id="shuoshuo-list">
             <div id="shuoshuo-comment">
                 <form action="" method="post">
@@ -29,7 +29,7 @@ require_once ('header.php');
             if (isset($shuoshuos)) {
                 foreach ($shuoshuos as $shuoshuo){?>
                     <li data-shuoshuo-id=<?php echo $shuoshuo->id ?> >
-                        <?php echo $shuoshuo->source ?>
+                        <?php echo $shuoshuo->content ?>
                         <i class="fa fa-commenting"></i>
                     </li>
                 <?php } ?>

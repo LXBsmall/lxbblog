@@ -1,6 +1,8 @@
 # Blog App:
 .idea/*
 *.css*
+log/*
+.DS_Store/
 
 # My configurations:
 

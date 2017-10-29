@@ -32,8 +32,8 @@ function login_auth($redirect = false){
     $loggedin = $cookie_login && $cookie_login === login_gen_cooike();
     if (!$loggedin){
         if ($redirect){
-            $home = 'http://'.$lbopt->get('lxbhome');
-            $url = $home.'/admin/login.php?url='.urlencode($_SERVER['REQUEST_URI']);
+            //$home = 'http://'.$lbopt->get('lxbhome');
+            $url = '/admin/login.php?url='.urlencode($_SERVER['REQUEST_URI']);
             header('HTTP/1.1 302 Login Required');
             header('Location: '.$url);
             die(0);

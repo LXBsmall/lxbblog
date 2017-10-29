@@ -7,14 +7,14 @@
  */
 
 require_once ('load.php');
-require_once ('header.php');
+require_once('header.php');
 
 function shuoshuo_main(){
     global $lbshuoshuo;
-    $id = $_GET['id'] ?? '';
-    $isdelete = $_GET['delete'] ?? '0';
+    $id = $_GET['id'] ?? 0;
+    $isdelete = $_GET['delete'] ?? 0;
 
-    if($isdelete == 1 && $id>0){
+    if ($isdelete == 1 && $id>0){
         echo delete_shuoshuo($id);
         return;
     }
@@ -31,26 +31,26 @@ function shuoshuo_main(){
         <div id="post-shuoshuo">
             <h3>发表说说</h3>
             <form method="post">
-                <input type="text" name="id" data-bind-shuoshuo="id" style="display: block;"
-                       value="<?php echo ($id && $id>0)?$id:$lbshuoshuo->get_id()+1; ?>">
-                <textarea name="content" data-bind-shuoshuo="content" cols="30" rows="10" style="display: block;"
-                          placeholder="说说内容"><?php /*echo $cur_content; */?></textarea>
+<!--                <input type="text" name="id" data-bind-shuoshuo="id" style="display: block;"-->
+<!--                       value="--><?php //echo ($id && $id>0)?$id:$lbshuoshuo->get_id()+1; ?><!--">-->
+                <textarea name="content" id="post-content" data-bind-shuoshuo="content" cols="30" rows="10" style="display: block;"
+                          placeholder="说说内容" required><?php /*echo $cur_content; */?></textarea>
                 <lebal>时间:<input type="datetime" name="date" data-bind-shuoshuo="date" ></lebal>
                 <lebal>经度:<input type="text" name="geolat" data-bind-shuoshuo="geolat"></lebal>
                 <lebal>纬度:<input type="text" name="geolng" data-bind-shuoshuo="geolng"></lebal>
                 <lebal>位置:<input type="text" name="geoaddr" data-bind-shuoshuo="geoaddr"></lebal>
                 <div class="geo">
-                    <p>维度：<span data-bind-shuoshuo="geolat"></span></p>
-                    <p>经度：<span data-bind-shuoshuo="geolng"></span></p>
+                    <p>维度：<span data-bind-shuoshuo="geolat" class="geolat"></span></p>
+                    <p>经度：<span data-bind-shuoshuo="geolng" class="geolng"></span></p>
                     <p>位置:
-                        <select name="location" id="location" data-bind-shuoshuo="geoaddr">
+                        <select name="location" class="geoaddr" data-bind-shuoshuo="geoaddr">
                             <option value="<?php /*echo $cur_geoaddr; */?>"><?php /*echo $cur_geoaddr; */?></option>
                         </select>
                     </p>
                     <p class="error"></p>
                 </div>
                 <input type="button" value="更新坐标" onclick="getGeoLocation()">
-                <input type="button" value="提交">
+                <input type="submit" id="submit-shuoshuo"  onclick="return false;" value="提交">
             </form>
     </div>
     <div class="loads">
@@ -111,12 +111,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') :
     shuoshuo_main();
     ?>
 
-
 <?php
 else : //POST
-    if(isset($_POST['delete']) && $_POST['delete'] == 1){
 
+    if (isset($_POST['id']) && $_POST['id']>0){
+        $ret = $lbshuoshuo->update_shuoshuo_by_id($_POST);
+        if ($ret == true){
+            $rep['repCode'] = 0;
+            $rep['repInfo'] = '修改说说成功';
+        } else{
+            $rep['repCode'] = -1;
+            $rep['repInfo'] = '修改说说失败(['.$lbdb->errno.']'.$lbdb->error.']';
+        }
+        echo json_encode($rep);
+    } else if (!isset($_POST['id'])){
+        $ret = $lbshuoshuo->insert_shuoshuo($_POST);
+        if($ret){
+            $rep['repCode'] = 0;
+            $rep['repInfo'] = '发表说说成功';
+        } else {
+            $rep['repCode'] = $lbdb->errno;
+            $rep['repInfo'] = $lbdb->error;
+        }
+        echo json_encode($rep);
     }
+
 
 endif;
 

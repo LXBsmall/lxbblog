@@ -27,6 +27,7 @@ class LB_Shuoshuo
     }
 
 
+    //获取最后说说的id
     public function get_id(){
         global $lbdb;
         $sql = "SELECT id FROM shuoshuo ORDER BY id DESC LIMIT 1";
@@ -60,6 +61,57 @@ class LB_Shuoshuo
         }
 
         else{
+            return false;
+        }
+    }
+
+    public function update_shuoshuo_by_id($post){
+        global $lbdb;
+        $id = $post['id'];
+        $content = $post['content'];
+        $date = $post['date'];
+        $geo_lat = $post['geolat'];
+        $geo_lng = $post['geolng'];
+        $geo_addr = $post['geoaddr'];
+        $source = strip_tags($content);
+        $sql = "SELECT id FROM shuoshuo WHERE id=$id";
+        $row = $lbdb->query($sql);
+        if ($row && $row->num_rows==1 ){
+            $sql = "UPDATE shuoshuo SET content='$content', date='$date', geo_lat='$geo_lat', geo_lng='$geo_lng',
+              geo_addr='$geo_addr', source='$source' WHERE id=$id";
+            $row = $lbdb->query($sql);
+            if($row){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function insert_shuoshuo($post){
+        global $lbdb;
+        global $lbmysqltime;
+        global $lblog;
+
+        $lblog->log($post);
+        $content = $post['content'];
+        //echo 'date'.$post['date'];
+        //$date = $post['date'] ?? $lbmysqltime->mysql_now_time();
+        $date = ($post['date'] != '' && isset($post['date']))? $post['date'] : $lbmysqltime->mysql_now_time();
+        $ret = $lblog->log('当时时间：'.$lbmysqltime->mysql_now_time());
+        //echo $lbmysqltime->mysql_now_time();
+        //echo 'geolat'.$post['geolat'];
+        $geo_lat = $post['geolat'] != '' ? $post['geolat'] : 0;
+        $geo_lng = $post['geolng'] != '' ? $post['geolat'] : 0;
+        $geo_addr = $post['geoaddr'] ?? '';
+        $source = strip_tags($content);
+        $log = 'date:'.$date.',geo_lat:'.$geo_lat.',geo_lng:'.$geo_lng.',geo_addr:'.$geo_addr;
+        $lblog->log($log);
+        $sql = "INSERT INTO shuoshuo (content, date, geo_lat, geo_lng, geo_addr, source, is_show) 
+          VALUES ('$content', '$date', '$geo_lat', '$geo_lng', '$geo_addr', '$source', DEFAULT )";
+        $row = $lbdb->query($sql);
+        if($row){
+            return true;
+        } else {
             return false;
         }
     }

@@ -11,10 +11,12 @@ require_once ('models/options.php');
 require_once ('models/shuoshuo.php');
 require_once ('models/post.php');
 require_once('models/query.php');
+require_once ('models/mysql_time.php');
 
 //require_once('login/login_auth.php');
 require_once ('utils/utils.php');
 require_once ('utils/die.php');
+require_once ('utils/filelog.php');
 
 require_once('login_auth.php');
 
@@ -22,3 +24,5 @@ $lbquery = new LB_Query();
 $lbopt = new LB_Options();
 $lbshuoshuo = new LB_Shuoshuo();
 $lbpost = new LB_Post();
+$lbmysqltime = new LB_Mysqltime();
+$lblog = new LB_FileLog();

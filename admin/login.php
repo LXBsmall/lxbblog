@@ -28,7 +28,7 @@ function html_login($url = ''){
             <form action="" method="post" class="login-form">
                 <h1 class="title">登  录</h1>
                 <div class="input-wrapper">
-                    <input type="text" name="user" placeholder="用户名" required/><br>
+                    <input type="text" name="user" placeholder="用户名" required autofocus/><br>
                     <input type="password" name="password" placeholder="密码" required/><br>
                     <input type="submit"  value="登   录" />
                     <input type="button"  value="取   消" onclick="location.href='/'; "/>
