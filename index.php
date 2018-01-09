@@ -12,9 +12,13 @@ if(file_exists('MAINTENANCE')) {
     echo '网站维护中，请稍后再访问...';
     die(-1);
 }
-$start_time = microtime();
+$start_time = microtime(true);
 require_once('admin/load.php');
 if (!$lbquery->query()){
     lb_die('400', '未定义查询');
 }
 if ($lbquery->is_home())    require_once('themes/index.php');
+if ($lbquery->is_we())      require_once('we/index.php');
+
+$run_time = microtime(true) - $start_time;
+echo "<script>console.log('run time: $run_time'+'s')</script>";

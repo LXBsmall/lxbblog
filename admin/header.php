@@ -35,7 +35,7 @@ $blogname = $lbopt->get('blogname');
     <!--    <link rel="stylesheet" href="style/sass/style.css">-->
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="/themes/style/style.css">
-    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="js/pubsub.js"></script>
 </head>
 

@@ -11,12 +11,13 @@ function getGeoLocation(){
                 var lng = position.coords.longitude;    // 经度
                 s.set('geolat', lat);
                 s.set('geolng', lng);
+                //alert(position);
                 get_detail_location(lat, lng);
             },
             // 若获取失败
             function(err) {
-                //alert('获取地理位置时遇到错误。');
-                $('.geo .error').html("坐标："+'<span class=error>获取地理位置时遇到错误('+err.message+ ')</span>');
+                alert('获取地理位置时遇到错误。');
+                //$('.geo .error').html("坐标："+'<span class=error>获取地理位置时遇到错误('+err.message+ ')</span>');
                 //$('.error').text('获取地理位置时遇到错误(' + err.message + ')');
             },
             // 更多参数
@@ -34,7 +35,7 @@ function get_detail_location(lat,lng) {
     //var results = $('#results');
     // 注意高德的经纬度参数与上面两个是相反的
     var gd = document.createElement('script');
-    gd.src = '//restapi.amap.com/v3/assistant/coordinate/convert?key=eb057f7b19b8bb1c89a76b571e3490cc&locations='+
+    gd.src = 'https://restapi.amap.com/v3/assistant/coordinate/convert?key=eb057f7b19b8bb1c89a76b571e3490cc&locations='+
         lng+','+lat+'&coordsys=gps&output=json&callback=update_address_gaode_coord';
     $('.loads').empty();
     $('.loads').append(gd);
@@ -44,14 +45,14 @@ function update_address_gaode_coord(data) {
     if(data.status === '1'){
         var s = data.locations;
         var sc = document.createElement('script');
-        sc.src = '//restapi.amap.com/v3/geocode/regeo?key=eb057f7b19b8bb1c89a76b571e3490cc&location=' +
+        sc.src = 'https://restapi.amap.com/v3/geocode/regeo?key=eb057f7b19b8bb1c89a76b571e3490cc&location=' +
             s+'&extensions=all&callback=update_address_gaode';
         $('.loads').append(sc);
     }
 }
 
 function update_address_gaode(data){
-    update_address(data, $('#location'));
+    update_address(data, $('select[name=location]'));
 }
 
 function update_address(data, elm) {
@@ -63,8 +64,10 @@ function update_address(data, elm) {
             var o = $('<option>');
             o.val(info);
             o.text(info);
+            //alert(o.val()+' '+o.text());
             elm.append(o);
         })
+
         s.set('geoaddr', elm.children()[0].value);
     }
 }
@@ -99,7 +102,7 @@ function Shuoshuo(uid){
             this.set('date', $(':input[name=date]').val());
             this.set('geolat', $('geolat').text());
             this.set('geolng', $('.geolng').text());
-            this.set('geoaddr',$(':input[name=geoaddr]').val());
+            this.set('geoaddr',' ');
         },
         _binder : binder
     }
@@ -123,10 +126,9 @@ function edit_shuoshuo(data){
     $(':input[name=geoaddr]').val(data.geo_addr);
 }
 
-
+var s = new Shuoshuo('shuoshuo');
 $(document).ready(function () {
 
-    var s = new Shuoshuo('shuoshuo');
     s.start();
 
     $('#rct-shuoshuo').on('click', function (e) {

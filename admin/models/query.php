@@ -30,6 +30,10 @@ class LB_Query
         return $this->type === 'admin';
     }
 
+    public function is_we(){
+        return $this->type === 'we';
+    }
+
     public function query(){
 
         $u = [];
@@ -52,7 +56,7 @@ class LB_Query
         if (!isset($u)){
             $this->type = 'unknown';
             $this->objs = null;
-            //lb_die(503, '未知查询!');
+            lb_die(503, '未知查询!');
             return false;
         }
 
@@ -67,6 +71,7 @@ class LB_Query
             $this->type = 'admin';
             return true;
         }
+
         else{
             $this->type = 'home';
             return true;

@@ -26,31 +26,31 @@ function shuoshuo_main(){
 
     admin_header();
     ?>
-    <script src="js/shuoshuo.js"></script>
+    <script src="js/shuoshuo.js" xmlns="http://www.w3.org/1999/html"></script>
     <section id="main">
         <div id="post-shuoshuo">
             <h3>发表说说</h3>
             <form method="post">
 <!--                <input type="text" name="id" data-bind-shuoshuo="id" style="display: block;"-->
 <!--                       value="--><?php //echo ($id && $id>0)?$id:$lbshuoshuo->get_id()+1; ?><!--">-->
-                <textarea name="content" id="post-content" data-bind-shuoshuo="content" cols="30" rows="10" style="display: block;"
-                          placeholder="说说内容" required><?php /*echo $cur_content; */?></textarea>
+                <label for=""><textarea name="content" id="post-content" data-bind-shuoshuo="content" cols="100" rows="10" style="display: block;"
+                          placeholder="说说内容" required><?php /*echo $cur_content; */?></textarea></label>
                 <lebal>时间:<input type="datetime" name="date" data-bind-shuoshuo="date" ></lebal>
-                <lebal>经度:<input type="text" name="geolat" data-bind-shuoshuo="geolat"></lebal>
-                <lebal>纬度:<input type="text" name="geolng" data-bind-shuoshuo="geolng"></lebal>
-                <lebal>位置:<input type="text" name="geoaddr" data-bind-shuoshuo="geoaddr"></lebal>
+<!--                <lebal>经度:<input type="text" name="geolat" data-bind-shuoshuo="geolat"></lebal>-->
+<!--                <lebal>纬度:<input type="text" name="geolng" data-bind-shuoshuo="geolng"></lebal>-->
+<!--                <lebal>位置:<input type="text" name="geoaddr" data-bind-shuoshuo="geoaddr"></lebal>-->
                 <div class="geo">
-                    <p>维度：<span data-bind-shuoshuo="geolat" class="geolat"></span></p>
-                    <p>经度：<span data-bind-shuoshuo="geolng" class="geolng"></span></p>
-                    <p>位置:
+                    <label ><p>纬度：<span data-bind-shuoshuo="geolat" class="geolat"></span></p></label>
+                    <label><p>经度：<span data-bind-shuoshuo="geolng" class="geolng"></span></p></label>
+                    <label><p>位置:
                         <select name="location" class="geoaddr" data-bind-shuoshuo="geoaddr">
                             <option value="<?php /*echo $cur_geoaddr; */?>"><?php /*echo $cur_geoaddr; */?></option>
                         </select>
-                    </p>
-                    <p class="error"></p>
+                    </p></label>
+                    <label><p class="error"></p></label>
                 </div>
-                <input type="button" value="更新坐标" onclick="getGeoLocation()">
-                <input type="submit" id="submit-shuoshuo"  onclick="return false;" value="提交">
+                <label for=""><input type="button" value="更新坐标" onclick="getGeoLocation()"></label>
+                <label for=""><input type="submit" id="submit-shuoshuo"  onclick="return false;" value="提交"></label>
             </form>
     </div>
     <div class="loads">
@@ -66,7 +66,7 @@ function shuoshuo_main(){
                 $id = $s->id;
                 $source = $s->source;
                 $date = $s->date;
-                echo "<li data-id='$id'>$source <span class='date'>-$date</span>
+                echo "<li data-id='$id'>$source <span class='date'> $date</span>
                             <input type='button' value='编辑'class='edit'> 
                             <input type='button' value='删除'class='delete'> 
                             </li>";

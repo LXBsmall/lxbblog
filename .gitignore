@@ -1,9 +1,13 @@
 # Blog App:
+# My configurations:
+#phpstorm
 .idea/*
-*.css*
 log/*
 .DS_Store/
 
-# My configurations:
+#css
+.sass-cache/
+*.css*
+
 
 
