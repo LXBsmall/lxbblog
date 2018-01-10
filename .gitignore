@@ -7,7 +7,7 @@ log/*
 
 #css
 .sass-cache/
-*.css*
+*.css.*
 
 
 

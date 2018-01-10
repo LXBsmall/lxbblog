@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0; }
+  * a {
+    color: black;
+    text-decoration: none; }
+    * a:hover {
+      color: red;
+      text-decoration: underline; }
+    * a:visited {
+      color: blue; }
+  * .left {
+    float: left; }
+  * .right {
+    float: right; }
+  * .clearb {
+    clear: both; }
+  * .clearl {
+    clear: left; }
+
+header#heading {
+  widows: 200px;
+  padding: 20px;
+  background-color: gray;
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  text-align: center;
+  overflow: auto; }
+  header#heading ul {
+    list-style-type: none; }
+    header#heading ul a:visited {
+      color: black; }
+  header#heading .heading {
+    margin-bottom: 20px; }
+  header#heading .nav {
+    font-weight: bold; }
+    header#heading .nav li {
+      padding: 2px 0; }
+  header#heading img {
+    border-radius: 50px; }
+
+#main {
+  padding: 20px 220px 20px 220px; }
+  #main ul {
+    list-style-type: none; }
+
+#rct-shuoshuo #shuoshuo-list .fa-commenting, #rct-shuoshuo #shuoshuo-list .fa-caret-up {
+  visibility: hidden;
+  cursor: pointer; }
+#rct-shuoshuo #shuoshuo-list li:hover .fa-commenting, #rct-shuoshuo #shuoshuo-list li:hover .fa-caret-up {
+  visibility: visible; }
+#rct-shuoshuo #shuoshuo-comment {
+  width: 300px;
+  display: none;
+  padding: 0.5em 0; }
+  #rct-shuoshuo #shuoshuo-comment input {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0.3em;
+    margin-bottom: 3px;
+    width: 45%; }
+  #rct-shuoshuo #shuoshuo-comment textarea {
+    width: 91%;
+    margin-bottom: 3px; }
+
+#post-shuoshuo {
+  line-height: 2em; }
+
+#rct-shuoshuo li {
+  padding: 0.2em; }
+
+/*# sourceMappingURL=style.css.map */

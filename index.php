@@ -18,7 +18,6 @@ if (!$lbquery->query()){
     lb_die('400', '未定义查询');
 }
 if ($lbquery->is_home())    require_once('themes/index.php');
-if ($lbquery->is_we())      require_once('we/index.php');
 
 $run_time = microtime(true) - $start_time;
 echo "<script>console.log('run time: $run_time'+'s')</script>";
